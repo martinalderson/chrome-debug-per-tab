@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head><title>tabctl fixture</title></head>
+<body>
+  <h1>Fixture Page</h1>
+  <p id="status">idle</p>
+  <input id="field" type="text" placeholder="type here">
+  <p id="typed">typed: <span id="typed-value"></span></p>
+  <button id="go" type="button">Click me</button>
+
+  <script>
+    console.log("fixture loaded");
+    console.warn("a warning");
+
+    document.getElementById("go").addEventListener("click", (e) => {
+      // isTrusted distinguishes a real CDP-dispatched click from element.click().
+      document.getElementById("status").textContent = "clicked:" + e.isTrusted;
+    });
+
+    document.getElementById("field").addEventListener("input", (e) => {
+      document.getElementById("typed-value").textContent = e.target.value;
+    });
+
+    document.getElementById("field").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("status").textContent = "entered";
+    });
+
+    // Gives the Network domain something to report.
+    fetch("data.json").then(r => r.json()).then(d => console.log("fetched", d.ok));
+  </script>
+</body>
+</html>
