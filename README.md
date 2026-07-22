@@ -140,3 +140,7 @@ test/e2e.sh --quick    # skip the idle test
 ```
 
 The test can't launch its own browser, for the `--load-extension` reason above.
+
+## Licence
+
+MIT — see [LICENSE](LICENSE).
