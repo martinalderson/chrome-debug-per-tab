@@ -149,7 +149,7 @@ else
   sleep 45
   check    "eval works after idle"      "4"            "$(T eval '2+2')"
   contains "status intact after idle"   "index.html"   "$(T status)"
-  contains "no reconnect gap in logs"   "fixture"      "$(T text h1)"
+  contains "page still readable after idle" "Fixture Page" "$(T text h1)"
 fi
 
 echo
