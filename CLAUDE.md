@@ -1,7 +1,7 @@
 # tabctl
 
-Lets Claude drive **one specific Chrome tab** that Martin has armed by clicking the toolbar
-button. Nothing is reachable until he does that; clicking again revokes it.
+Lets Claude drive **one specific Chrome tab** that the user has armed by clicking the toolbar
+button. Nothing is reachable until they do that; clicking again revokes it.
 
 ## Driving a tab
 
@@ -23,16 +23,15 @@ The daemon auto-starts on first use — never tell the user to run `tabctl serve
 `logs`/`net` print `nextSeq` on **stderr**; pass it back as `--since` to page without
 repeats. The buffer holds 2000 events.
 
-If a command errors with "extension not connected", a tab simply isn't armed — ask Martin to
+If a command errors with "extension not connected", a tab simply isn't armed — ask the user to
 click the toolbar button. Don't try to work around it.
 
 ## Layout
 
 - `extension/` — MV3 extension. `background.js` owns the `chrome.debugger` session and the
   WebSocket to the daemon.
-- `src/TabCtl/` — .NET 10 Native AOT CLI, follows the house pattern in
-  `~/source/martin-clis/CLAUDE.md` (top-level `Program.cs`, `Commands/CommandRouter.cs`,
-  JSON default output).
+- `src/TabCtl/` — .NET 10 Native AOT CLI: top-level `Program.cs`, `Commands/CommandRouter.cs`,
+  JSON default output.
   - `Server/RelayState.cs` — multiplexes CDP commands over the one socket, buffers events.
   - `Server/RelayServer.cs` — Kestrel on 127.0.0.1, token + Host + Origin guards.
   - `Client/DaemonClient.cs` — HTTP client, spawns the daemon on demand.
